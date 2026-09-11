@@ -1,0 +1,6 @@
+fastapi>=0.115
+uvicorn>=0.30
+python-multipart>=0.0.9
+markitdown[all]>=0.0.1a3
+oletools>=0.60
+olefile>=0.46

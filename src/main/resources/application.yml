@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: office-convert
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 200MB
+
+office-convert:
+  work-dir: ./data
+  # 资源限制（需求 18 确认：单文件 20M、附件数 10、递归深度 2）
+  max-file-bytes: 20971520        # 20MB
+  max-files-per-task: 20
+  max-attachments: 10             # 单任务最大附件总数（含子附件）
+  max-depth: 2                    # 最大递归层级
+  concurrency: 2                  # 并发转换任务数
+  task-timeout-seconds: 600       # 单任务最大执行时间
+  # Excel
+  large-sheet-rows: 5000          # 超过则分块
+  sheet-chunk-rows: 1000          # 每块行数
+  # Word
+  include-header-footer: true
+  include-comments: true
+  include-footnotes: true
+  revision-strategy: accept       # accept | reject | mark
+  # Excel 公式输出策略：value | formula | both
+  formula-mode: both
+  include-hidden-sheets: true
+  include-hidden-slides: true
+  notes-strategy: include         # PPT 备注：include | omit
+  markdown-dialect: gfm           # gfm | commonmark
+  # Python sidecar（MarkItDown + oletools 兜底转换，可选）
+  sidecar:
+    enabled: false
+    base-url: http://127.0.0.1:8900
+
+logging:
+  level:
+    com.example.officeconvert: INFO
